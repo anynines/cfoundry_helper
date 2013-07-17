@@ -12,4 +12,7 @@ group :test do
   gem 'activesupport'
   gem 'httpclient'
   gem 'yajl-ruby'
+
+  gem 'pry'
+  gem 'pry-debugger'
 end
