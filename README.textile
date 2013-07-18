@@ -5,7 +5,19 @@ API.
 
 h2. Organization management
 
-The Anynines::OrganizationHelper modules' methods provide helper methods for the following use cases:
+The CFoundryHelper::Helpers::OrganizationHelper modules' methods provide helper methods for the following use cases:
 
-* add/remove Users from Organizations
-* administer User roles within Organizations
+* create organizations
+* add/remove Users from organizations
+* administer User roles within organizations
+
+h2. User management
+
+The CFoundryHelper::Helpers::UserHelper module provides methods for managing users within the system:
+
+* get user by email
+
+h2. Client Helper
+
+The CFoundryHelper::Helpers::ClientHelper is a factory for uaa and cloud controller clients.
+

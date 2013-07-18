@@ -1,0 +1,22 @@
+production: &defaults
+  uaa:
+    site:           "http://uaa.any9app.com"
+    client_id:      ""
+    client_secret:  ""
+  cloud_controller:
+    site:           "http://api.any9app.com"
+    username:       ""
+    password:       ""
+
+development:
+  <<: *defaults
+
+test:
+  uaa:
+    site:           ""
+    client_id:      ""
+    client_secret:  ""
+  cloud_controller:
+    site:           ""
+    user:           ""
+    password:       ""

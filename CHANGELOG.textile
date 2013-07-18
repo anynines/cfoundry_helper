@@ -1,2 +1,4 @@
-h1. v0.0.1
-* OrganizationHelper class
+h1. v0.1.0
+* OrganizationHelper implementation
+* ClientHelper implementation
+* UserHelper implementation
