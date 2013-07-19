@@ -1,6 +1,31 @@
 module CFoundryHelper::Helpers
   module UserHelper
 
+    def self.create_user(attributes)
+      raise "The given attributes hash is nil!" if attributes.nil?
+      raise "No user email given!" if attributes[:email].nil?
+      raise "No password attribute given!" if attributes[:password].nil?
+
+      # no admin user is created as a default
+      admin = false
+      unless attributes[:admin].nil?
+        admin = attributes[:admin]
+      end
+
+      user = CFoundryHelper::Helpers::ClientHelper.cloud_controller_client.register(attributes[:email], attributes[:password])
+
+      if admin
+        user.admin = true
+        user.update!
+      end
+
+      user
+    end
+
+    def self.get_cc_users
+      CFoundryHelper::Helpers::ClientHelper.cloud_controller_client.users
+    end
+
     # returns the CFoundry::V2::User with the given email address if present
     # throws an exception if the given user is not present in the system
     def self.get_user_by_email(email)

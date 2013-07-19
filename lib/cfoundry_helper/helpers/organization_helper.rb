@@ -1,6 +1,10 @@
 module CFoundryHelper::Helpers
     module OrganizationHelper
 
+        def self.get_organizations
+          self.cc_client.organizations
+        end
+
         def self.exists?(org_name)
           self.cc_client.organizations.each do |o|
             return true if o.name.eql? org_name
