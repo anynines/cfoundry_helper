@@ -2,3 +2,6 @@ h1. v0.1.0
 * OrganizationHelper implementation
 * ClientHelper implementation
 * UserHelper implementation
+
+h2. v0.2.0
+* add users to org script

@@ -57,6 +57,15 @@ module CFoundryHelper::Helpers
       res_array
     end
 
+    def self.email_exists?(email)
+      begin
+        u = self.get_user_by_email email
+          return true
+      rescue
+        return false
+      end
+    end
+
     # returns the CFoundry::V2::User with the given email address if present
     # throws an exception if the given user is not present in the system
     def self.get_user_by_email(email)

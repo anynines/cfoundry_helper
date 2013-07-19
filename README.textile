@@ -21,3 +21,7 @@ h2. Client Helper
 
 The CFoundryHelper::Helpers::ClientHelper is a factory for uaa and cloud controller clients.
 
+
+h2. Scripts
+* bin/add_users_to_org.rb : adds users to an organization
+    ** usage : RAILS_ENV=<env> ruby bin/add_users_to_org.rb <org name> <users_email_list_file_location>
