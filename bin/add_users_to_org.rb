@@ -1,3 +1,4 @@
+#!/usr/bin/ruby
 require_relative '../lib/cfoundry_helper'
 
 # function definitions ---------------------------------------------

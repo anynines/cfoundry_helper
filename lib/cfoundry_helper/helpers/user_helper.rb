@@ -1,6 +1,20 @@
 module CFoundryHelper::Helpers
   module UserHelper
 
+    def self.get_email_for_user(user)
+      guid = user.guid
+
+      # fetch the data from the uaa
+      scim_cl = CFoundryHelper::Helpers::ClientHelper.scim_client
+      query_result = scim_cl.query(:user, {:filter => "id eq '#{guid}'"})
+
+      if query_result["resources"].nil? || query_result["resources"].empty?
+        raise "No user with the guid: #{guid} could be found on the uaa!"
+      end
+
+      query_result["resources"].first["emails"].first["value"]
+    end
+
     def self.create_user(attributes)
       raise "The given attributes hash is nil!" if attributes.nil?
       raise "No user email given!" if attributes[:email].nil?
@@ -24,6 +38,23 @@ module CFoundryHelper::Helpers
 
     def self.get_cc_users
       CFoundryHelper::Helpers::ClientHelper.cloud_controller_client.users
+    end
+
+    def self.get_user_emails
+      scim_cl = CFoundryHelper::Helpers::ClientHelper.scim_client
+      query_result = scim_cl.query(:user)
+
+      if query_result["resources"].nil? || query_result["resources"].empty?
+        raise "No user emails could be found in the uaa!"
+      end
+
+      res_array = Array.new
+      user_guid = query_result["resources"].each do |r|
+        res_array << r["emails"].first["value"]
+        res_array.sort!
+      end
+
+      res_array
     end
 
     # returns the CFoundry::V2::User with the given email address if present
