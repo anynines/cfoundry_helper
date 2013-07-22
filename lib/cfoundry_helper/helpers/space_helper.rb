@@ -77,6 +77,10 @@ module CFoundryHelper::Helpers
       return !org.space_by_name(spacename).nil?
     end
 
+    def self.exists_by_name?(org_name, space_name)
+      return !self.get_space_by_name(org_name, space_name).nil?
+    end
+
     # takes an array of roles and adds the given user to the according space's role lists
     # throws an exception if any of the given arguments is nil or empty
     # throws an exception if the given user is not registered with the space's organization
@@ -119,6 +123,8 @@ module CFoundryHelper::Helpers
       space.update!
       space
     end
+
+    private
 
     # gets the current cloud controller client from the ClientHelper module
     def self.cc_client

@@ -43,6 +43,15 @@ module CFoundryHelper::Helpers
       @@cloud_controller_client = CFoundry::V2::Client.new(@@config['cloud_controller']['site'], token)
     end
 
+
+    def self.set_scim_client(client)
+      @@scim_client = client
+    end
+
+    def self.set_cc_client(client)
+      @@cloud_controller_client = client
+    end
+
     protected
 
     def self.read_config_file
