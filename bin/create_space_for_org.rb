@@ -4,6 +4,7 @@ require "pry"
 # function definitions ---------------------------------------------
 def print_help
   puts "This script adds a new space with the given name to the organization with the given name."
+  puts "If the given space already exists, it just assigns the roles to the organization's users."
   puts "Members of the given organization are registered as Space Developers and Space Auditors."
   puts "You have entered a wrong number of arguments!"
   puts "Usage: create_spaces_for_org.rb <organization name> <space name>"
@@ -22,10 +23,17 @@ def get_org(org_name)
   org
 end
 
-def create_space(org, space_name)
+def create_or_get_space(org, space_name)
   puts "Creating space with name=#{space_name} ..."
-  space = CFoundryHelper::Helpers::SpaceHelper.create_space org, space_name
-  puts "Created space successfully!"
+  space = nil
+  begin
+    space = CFoundryHelper::Helpers::SpaceHelper.create_space org, space_name
+    puts "Created space successfully!"
+  rescue
+    puts "The space #{space_name} already exists."
+    puts "Using this space to assign user roles now."
+    space = CFoundryHelper::Helpers::SpaceHelper.get_space org, space_name
+  end
   space
 end
 
@@ -61,5 +69,5 @@ puts "Organization: #{organization_name}"
 puts "Space name: #{space_name}"
 
 org = get_org organization_name
-space = create_space org, space_name
+space = create_or_get_space org, space_name
 set_org_users_space_roles org, space
