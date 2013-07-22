@@ -32,9 +32,29 @@ module CFoundryHelper::Helpers
     end
 
     # deletes all app instances and services from the given space
+    # deletes all routes from the given space
     # throws an exception if the given space is nil
     def self.empty_space(space)
-      #TODO: implement
+      raise "The given space is nil!" if space.nil?
+
+      #TODO: bugfix
+
+      # delete apps
+      while !space.apps.first.nil?
+        space.apps.first.delete!
+      end
+
+      # delete service instances
+      while !space.service_instances.first.nil? && !space.service_instances.first.name.eql?('')
+        space.service_instances.first.delete!
+      end
+
+      while !space.domains.first.nil?
+        space.remove_domain space.domains.first
+      end
+
+      space.update!
+      space
     end
 
     # returns the given the space with the given name within the given organization

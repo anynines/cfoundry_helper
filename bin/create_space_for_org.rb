@@ -39,7 +39,6 @@ def set_org_users_space_roles(org, space)
   puts "Setting roles for organization users..."
   org.users.each do |u|
     puts "Setting roles for user with guid=#{u.guid} ...."
-    binding.pry
     set_user_roles space, u
   end
   puts "Finished setting roles!"
