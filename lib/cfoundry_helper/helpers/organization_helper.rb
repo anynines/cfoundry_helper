@@ -1,6 +1,7 @@
 module CFoundryHelper::Helpers
     module OrganizationHelper
 
+        # returns an array of all CFoundry::V2::Organizations
         def self.get_organizations
           self.cc_client.organizations
         end
@@ -88,6 +89,7 @@ module CFoundryHelper::Helpers
         end
 
         # takes an array of roles and removes the given user from the according organizations role lists
+        # throws an exception if any of the given arguments is nil or empty
         # returns the organization
         def self.remove_roles(org, user, roles)
           raise "No roles given!" if roles.nil? || roles.empty?
@@ -105,6 +107,16 @@ module CFoundryHelper::Helpers
           end
           org.update!
           org
+        end
+
+        # returns an array of space names for the given organization
+        def self.get_space_names(org)
+          return [] if org.nil?
+          names = Array.new
+          org.spaces.each do |s|
+            names << s.name
+          end
+          names
         end
 
         private

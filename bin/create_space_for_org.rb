@@ -1,0 +1,66 @@
+#!/usr/bin/ruby
+require_relative '../lib/cfoundry_helper'
+require "pry"
+# function definitions ---------------------------------------------
+def print_help
+  puts "This script adds a new space with the given name to the organization with the given name."
+  puts "Members of the given organization are registered as Space Developers and Space Auditors."
+  puts "You have entered a wrong number of arguments!"
+  puts "Usage: create_spaces_for_org.rb <organization name> <space name>"
+end
+
+def print_rails_env
+  puts "RAILS_ENV=#{ENV["RAILS_ENV"]}"
+end
+
+def get_org(org_name)
+  org = CFoundryHelper::Helpers::OrganizationHelper.get_organization_by_name org_name
+  if org.nil?
+    print "No organization with the given name could be found!"
+    exit -1
+  end
+  org
+end
+
+def create_space(org, space_name)
+  puts "Creating space with name=#{space_name} ..."
+  space = CFoundryHelper::Helpers::SpaceHelper.create_space org, space_name
+  puts "Created space successfully!"
+  space
+end
+
+def set_user_roles(space, user)
+  CFoundryHelper::Helpers::SpaceHelper.add_roles space, user,
+                                                 [CFoundryHelper::Models::SpaceRole::AUDITOR,
+                                                  CFoundryHelper::Models::SpaceRole::DEVELOPER]
+end
+
+def set_org_users_space_roles(org, space)
+  puts "Setting roles for organization users..."
+  org.users.each do |u|
+    puts "Setting roles for user with guid=#{u.guid} ...."
+    binding.pry
+    set_user_roles space, u
+  end
+  puts "Finished setting roles!"
+end
+
+# execute script ----------------------------------------------
+
+if ARGV.count < 2
+  print_help
+  exit(-1)
+end
+
+puts "create space for organization"
+print_rails_env
+
+organization_name = ARGV[0]
+space_name = ARGV[1]
+
+puts "Organization: #{organization_name}"
+puts "Space name: #{space_name}"
+
+org = get_org organization_name
+space = create_space org, space_name
+set_org_users_space_roles org, space
