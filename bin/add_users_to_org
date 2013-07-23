@@ -8,7 +8,7 @@ require "cfoundry_helper"
 # function definitions ---------------------------------------------
 def print_help
   puts "You have entered a wrong number of arguments!"
-  puts "Usage: add_users_to_org.rb <organization name> <user list file location>"
+  puts "Usage: add_users_to_org.rb <organization name> <user list file location> <config file path>"
 end
 
 def add_user_to_org(org, email)
@@ -59,7 +59,7 @@ end
 
 # execute script ----------------------------------------------
 
-if ARGV.count < 2
+if ARGV.count < 3
   print_help
   exit(-1)
 end
@@ -69,6 +69,9 @@ print_rails_env
 
 organization_name = ARGV[0]
 file_loc = ARGV[1]
+config_file_path = ARGV[2]
+
+CFoundryHelper::Helpers::ClientHelper.set_config_file_path config_file_path
 
 unless check_users_present(file_loc)
   puts "Canceling operation!"

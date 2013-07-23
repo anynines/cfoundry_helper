@@ -5,6 +5,15 @@ module CFoundryHelper::Helpers
     @@config = nil
     @@scim_client = nil
     @@cloud_controller_client = nil
+    @@config_file_path = nil
+
+    def self.set_config_file_path(path)
+      @@config_file_path = path
+    end
+
+    def self.config_file_path
+      return @@config_file_path
+    end
 
     ##
     # Use this client to connect to the uaa-service and
@@ -56,10 +65,15 @@ module CFoundryHelper::Helpers
 
     def self.read_config_file
       if @@config.nil?
-        config_file_path = File.join(File.expand_path('../../../../config', __FILE__), 'services.yml')
-        @@config = YAML.load_file(config_file_path)[CFoundryHelper.env.to_s]
+        self.check_config_file_path
+        @@config = YAML.load_file(@@config_file_path)[CFoundryHelper.env.to_s]
       end
       @@config
+    end
+
+    def self.check_config_file_path
+      raise "No configuration file path has been set! Please call ClientHelper.set_config_file_path first!" if @@config_file_path.nil?
+      raise "There's no configuration file on the given config_file_path location!" if !File.exists? @@config_file_path
     end
 
   end

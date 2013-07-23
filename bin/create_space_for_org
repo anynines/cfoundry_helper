@@ -3,16 +3,13 @@
 require "rubygems"
 require "cfoundry_helper"
 
-#require_relative '../lib/cfoundry_helper'
-
-require "pry"
 # function definitions ---------------------------------------------
 def print_help
   puts "This script adds a new space with the given name to the organization with the given name."
   puts "If the given space already exists, it just assigns the roles to the organization's users."
   puts "Members of the given organization are registered as Space Developers and Space Auditors."
   puts "You have entered a wrong number of arguments!"
-  puts "Usage: create_spaces_for_org.rb <organization name> <space name>"
+  puts "Usage: create_spaces_for_org.rb <organization name> <space name> <config file path>"
 end
 
 def print_rails_env
@@ -59,7 +56,7 @@ end
 
 # execute script ----------------------------------------------
 
-if ARGV.count < 2
+if ARGV.count < 3
   print_help
   exit(-1)
 end
@@ -69,6 +66,9 @@ print_rails_env
 
 organization_name = ARGV[0]
 space_name = ARGV[1]
+config_file_path = ARGV[2]
+
+CFoundryHelper::Helpers::ClientHelper.set_config_file_path config_file_path
 
 puts "Organization: #{organization_name}"
 puts "Space name: #{space_name}"
