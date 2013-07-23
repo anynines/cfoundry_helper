@@ -6,6 +6,7 @@ module CFoundryHelper::Helpers
     @@scim_client = nil
     @@cloud_controller_client = nil
     @@config_file_path = nil
+    @@auth_token = nil
 
     def self.set_config_file_path(path)
       @@config_file_path = path
@@ -17,6 +18,11 @@ module CFoundryHelper::Helpers
 
     def self.get_cc_target_url
       return self.cloud_controller_client.target
+    end
+
+    def self.get_auth_token
+      self.cloud_controller_client if @@auth_token.nil?
+      return @@auth_token
     end
 
     ##
@@ -53,6 +59,7 @@ module CFoundryHelper::Helpers
       token_info = token_issuer.implicit_grant_with_creds(@@config['cloud_controller'])
       access_token = token_info.info["access_token"]
       token = CFoundry::AuthToken.from_hash({:token => "bearer #{access_token}"})
+      @@auth_token = token
       @@cloud_controller_client = CFoundry::V2::Client.new(@@config['cloud_controller']['site'], token)
     end
 
