@@ -1,4 +1,4 @@
-
+require "bundler/gem_tasks"
 
 if ["test", "development"].include?(ENV["RAILS_ENV"])
   require "pry"

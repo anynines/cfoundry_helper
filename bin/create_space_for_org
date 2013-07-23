@@ -1,5 +1,10 @@
-#!/usr/bin/ruby
-require_relative '../lib/cfoundry_helper'
+#!/usr/bin/env ruby
+
+require "rubygems"
+require "cfoundry_helper"
+
+#require_relative '../lib/cfoundry_helper'
+
 require "pry"
 # function definitions ---------------------------------------------
 def print_help

@@ -2,3 +2,5 @@
 .idea/*
 config/services.yml
 config/services.yml.b*
+pkg/
+pkg/*
