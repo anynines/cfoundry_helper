@@ -15,6 +15,10 @@ module CFoundryHelper::Helpers
       return @@config_file_path
     end
 
+    def self.get_cc_target_url
+      return self.cloud_controller_client.target
+    end
+
     ##
     # Use this client to connect to the uaa-service and
     # check wether a user alredy exists.

@@ -9,7 +9,7 @@ def print_help
   puts "If the given space already exists, it just assigns the roles to the organization's users."
   puts "Members of the given organization are registered as Space Developers and Space Auditors."
   puts "You have entered a wrong number of arguments!"
-  puts "Usage: create_spaces_for_org.rb <organization name> <space name> <config file path>"
+  puts "Usage: create_spaces_for_org <organization name> <space name> <config file path>"
 end
 
 def print_rails_env
@@ -72,6 +72,7 @@ CFoundryHelper::Helpers::ClientHelper.set_config_file_path config_file_path
 
 puts "Organization: #{organization_name}"
 puts "Space name: #{space_name}"
+puts "Cloud Controller target url: #{CFoundryHelper::Helpers::ClientHelper.get_cc_target_url}"
 
 org = get_org organization_name
 space = create_or_get_space org, space_name

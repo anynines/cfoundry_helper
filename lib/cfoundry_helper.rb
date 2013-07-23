@@ -1,4 +1,6 @@
 require 'bundler'
+require 'cfoundry'
+
 Bundler.require
 
 module CFoundryHelper

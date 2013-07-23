@@ -8,7 +8,7 @@ require "cfoundry_helper"
 # function definitions ---------------------------------------------
 def print_help
   puts "You have entered a wrong number of arguments!"
-  puts "Usage: add_users_to_org.rb <organization name> <user list file location> <config file path>"
+  puts "Usage: add_users_to_org <organization name> <user list file location> <config file path>"
 end
 
 def add_user_to_org(org, email)
@@ -72,6 +72,9 @@ file_loc = ARGV[1]
 config_file_path = ARGV[2]
 
 CFoundryHelper::Helpers::ClientHelper.set_config_file_path config_file_path
+
+puts "Organization: #{organization_name}"
+puts "Cloud Controller target url: #{CFoundryHelper::Helpers::ClientHelper.get_cc_target_url}"
 
 unless check_users_present(file_loc)
   puts "Canceling operation!"
