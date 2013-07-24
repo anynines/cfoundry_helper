@@ -16,6 +16,9 @@ h2. User management
 The CFoundryHelper::Helpers::UserHelper module provides methods for managing users within the system:
 
 * get user by email
+* create a user 
+* delete a user
+* change a user's password
 
 h2. Space management
 
