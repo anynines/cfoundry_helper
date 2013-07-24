@@ -33,6 +33,6 @@ The CFoundryHelper::Helpers::ClientHelper is a factory for uaa and cloud control
 
 h2. Scripts
 * bin/add_users_to_org : adds users to an organization
-    ** usage : RAILS_ENV=<environment> bundle exec bin/add_users_to_org <org name> <users_email_list_file_location> <services_config_file_location>
+    ** usage : RAILS_ENV=<test / production / development> bundle exec bin/add_users_to_org <org name> <users_email_list_file_location> <services_config_file_location>
 * bin/create_space_for_org : creates a space to an organization and assigns all organization members to it
-    ** usage : RAILS_ENV=<environment> bundle exec bin/create_space_for_org <org name> <space name> <services_config_file_location>
+    ** usage : RAILS_ENV=<test / production / development> bundle exec bin/create_space_for_org <org name> <space name> <services_config_file_location>
