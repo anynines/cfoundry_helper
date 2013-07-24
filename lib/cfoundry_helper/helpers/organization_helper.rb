@@ -19,7 +19,7 @@ module CFoundryHelper::Helpers
         def self.create_organization(attributes)
           raise "The given attributes hash is nil!" if attributes.nil?
           raise "No organization name given!" if attributes[:name].nil?
-          raise "No billing_enables attribute given!" if attributes[:billing_enabled].nil?
+          raise "No billing_enabled attribute given!" if attributes[:billing_enabled].nil?
 
           org = self.cc_client.organization
           org.name = attributes[:name]
