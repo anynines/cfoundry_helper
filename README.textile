@@ -1,7 +1,7 @@
 h1. CFoundry Helper
 
 This collection of scripts provides helper methods to the cfoundry gem's
-API.
+API. It implements common use cases when administrating a Cloud Foundry installation.
 
 h2. Organization management
 
@@ -32,5 +32,7 @@ The CFoundryHelper::Helpers::ClientHelper is a factory for uaa and cloud control
 
 
 h2. Scripts
-* bin/add_users_to_org.rb : adds users to an organization
-    ** usage : RAILS_ENV=<env> ruby bin/add_users_to_org.rb <org name> <users_email_list_file_location>
+* bin/add_users_to_org : adds users to an organization
+    ** usage : RAILS_ENV=<environment> bundle exec bin/add_users_to_org <org name> <users_email_list_file_location> <services_config_file_location>
+* bin/create_space_for_org : creates a space to an organization and assigns all organization members to it
+    ** usage : RAILS_ENV=<environment> bundle exec bin/create_space_for_org <org name> <space name> <services_config_file_location>
