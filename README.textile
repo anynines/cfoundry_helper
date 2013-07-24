@@ -17,6 +17,15 @@ The CFoundryHelper::Helpers::UserHelper module provides methods for managing use
 
 * get user by email
 
+h2. Space management
+
+The CFoundryHelper::Helpers::OrganizationHelper modules' methods provide helper methods for the following use cases:
+* create a space within an organization
+* add/remove Users from spaces
+* administer User roles within a space
+* empty a space (remove all apps, service_bindings, service_instances, routes and domains from the space) 
+* delete a space
+
 h2. Client Helper
 
 The CFoundryHelper::Helpers::ClientHelper is a factory for uaa and cloud controller clients.
