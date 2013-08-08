@@ -28,6 +28,14 @@ module CFoundryHelper::Helpers
           org
         end
 
+        # deletes an organization recursively (all spaces and their contents)
+        # returns true if the organization was deleted
+        def self.delete_organization_recursive(org)
+          raise "The given organization is nil!" if org.nil?
+
+          org.delete!(recursive: true)
+        end
+
         # returns the organization with the given name if it exists
         # throws an exception when the given organization doesn't exist
         def self.get_organization_by_name(name)

@@ -24,37 +24,28 @@ module CFoundryHelper::Helpers
     # returns true on deletion
     def self.delete_space(space)
       raise "The given space is nil!" if space.nil?
-      if space.apps.count > 0 || space.service_instances.count > 0
+      unless is_empty? space
         raise "The given space is not empty!"
       end
       space.delete!
       return true
     end
 
-    # deletes all app instances and services from the given space
-    # deletes all routes from the given space
-    # throws an exception if the given space is nil
-    def self.empty_space(space)
+    # deletes a given space recursively (all apps, services, ....)
+    # returns true if the space was deleted
+    def self.delete_space_recursive(space)
       raise "The given space is nil!" if space.nil?
-
-      #TODO: bugfix
-
-      # delete apps
-      while !space.apps.first.nil?
-        space.apps.first.delete!
+      space.delete!(:recursive => true)
+    end
+    
+    # returns true if no apps, service_instances, routes,
+    def self.is_empty?(space)
+      return true if space.nil?
+      if space.apps.count > 0 || space.service_instances.count > 0 || space.domains.count > 0
+        return false
+      else
+        return true
       end
-
-      # delete service instances
-      while !space.service_instances.first.nil? && !space.service_instances.first.name.eql?('')
-        space.service_instances.first.delete!
-      end
-
-      while !space.domains.first.nil?
-        space.remove_domain space.domains.first
-      end
-
-      space.update!
-      space
     end
 
     # returns the given the space with the given name within the given organization
