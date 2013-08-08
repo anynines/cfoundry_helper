@@ -1,0 +1,73 @@
+#!/usr/bin/env ruby
+
+require "rubygems"
+require "cfoundry_helper"
+
+# function definitions ---------------------------------------------
+def print_help
+  puts "This script delete a list of users including their default organization."
+  puts "You have entered a wrong number of arguments!"
+  puts "Usage: delete_orgs_and_users <user list file path> <config file path>"
+end
+
+def print_rails_env
+  puts "RAILS_ENV=#{ENV["RAILS_ENV"]}"
+end
+
+def get_standard_org_name_for_email(email)
+  email.gsub(/[\.|@]/, "_")
+end
+
+def delete_user(email)
+  begin
+    user = CFoundryHelper::Helpers::UserHelper.get_user_by_email email
+  rescue
+    puts "Could not find user with email=#{email}"
+    return
+  end
+
+  puts "Deleting user with email=#{email}"
+  CFoundryHelper::Helpers::UserHelper.delete_user user
+end
+
+def delete_org(org_name)
+  org = CFoundryHelper::Helpers::OrganizationHelper.get_organization_by_name org_name
+  if org.nil?
+    puts "Could not find organization with name=#{org_name}"
+    return
+  end
+
+  puts "Deleting organization with name=#{org_name}"
+  CFoundryHelper::Helpers::OrganizationHelper.delete_organization_recursive org
+end
+
+
+def delete_users(file_loc)
+  File.open(file_loc).each do |email|
+    email = email.strip
+    delete_user email
+    delete_org get_standard_org_name_for_email(email)
+  end
+
+  puts "Finished deleting users!"
+end
+
+
+# execute script ----------------------------------------------
+
+if ARGV.count < 2
+  print_help
+  exit(-1)
+end
+
+file_loc = ARGV[0]
+config_file_path = ARGV[1]
+
+print_rails_env
+puts "removing users and organizations described in #{file_loc}"
+
+CFoundryHelper::Helpers::ClientHelper.set_config_file_path config_file_path
+
+puts "Cloud Controller target url: #{CFoundryHelper::Helpers::ClientHelper.get_cc_target_url}"
+
+delete_users file_loc
