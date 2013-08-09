@@ -127,6 +127,17 @@ module CFoundryHelper::Helpers
           names
         end
 
+        # returns an array of all organization names present in the system
+        # use with caution (large dataset)
+        def self.get_all_org_names
+          arr = []
+          orgs = cc_client.organizations
+          orgs.each do |o|
+            arr << o.name
+          end
+          arr.sort!
+        end
+
         private
 
         # gets the current cloud controller client from the ClientHelper module
