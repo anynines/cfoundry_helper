@@ -35,5 +35,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry-debugger"
 
   spec.add_dependency "cfoundry"
-
+  spec.add_dependency "activesupport"
 end

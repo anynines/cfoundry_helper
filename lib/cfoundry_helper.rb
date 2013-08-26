@@ -1,5 +1,6 @@
 require 'bundler'
 require 'cfoundry'
+require 'active_support/core_ext/object/try'
 
 Bundler.require
 
