@@ -45,4 +45,11 @@ h2. Important environment variables
 
 * RAILS_ENV : The helper is reading the target environment on which to execute commands using the RAILS_ENV environment variable. (e.g. production, test)
 
-* CFOUNDRY_HELPER_CONFIG This variable has to point to the directory where your services.yml file resides.
+* CFOUNDRY_HELPER_CONFIG This variable has to point to your services.yml file.
+
+h2. Console Usage
+
+Use the following command to start the console with the associated target: 
+RAILS_ENV=<target_env> CFOUNDRY_HELPER_CONFIG=<services config file> rake c
+
+e.g.: RAILS_ENV=production CFOUNDRY_HELPER_CONFIG=config/services.yml rake c
