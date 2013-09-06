@@ -51,8 +51,11 @@ module CFoundryHelper::Helpers
     # Use this client to connect to the cloudcontroller
     # and register a new user.
     def self.cloud_controller_client
-      # just return the already initialized client if present
-      return @@cloud_controller_client unless @@cloud_controller_client.nil?
+      # just return the already initialized client if it was explicit setted.
+      # Don't cache the client in this method because long running apps will
+      # have some trouble with expired auth tokens.
+      # TODO: Refresh the token with the uaa refresh method.
+      return @@cloud_controller_client if @@cloud_controller_client
 
       self.read_config_file
       token_issuer = CF::UAA::TokenIssuer.new(@@config['uaa']['site'], "cf")
@@ -60,7 +63,7 @@ module CFoundryHelper::Helpers
       access_token = token_info.info["access_token"]
       token = CFoundry::AuthToken.from_hash({:token => "bearer #{access_token}"})
       @@auth_token = token
-      @@cloud_controller_client = CFoundry::V2::Client.new(@@config['cloud_controller']['site'], token)
+      CFoundry::V2::Client.new(@@config['cloud_controller']['site'], token)
     end
 
 
