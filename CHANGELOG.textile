@@ -5,3 +5,6 @@ h1. v0.1.0
 
 h2. v0.2.0
 * add users to org script
+
+h2. v0.2.1
+* Bugfix: Don't cache the cloud controller client since the access token expires in long running apps.
