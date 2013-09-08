@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cfoundry_helper (0.2.0)
+    cfoundry_helper (0.2.1)
       activesupport
       cfoundry
 
@@ -21,7 +21,7 @@ GEM
     builder (3.1.4)
     cf-uaa-lib (2.0.0)
       multi_json
-    cfoundry (4.3.4)
+    cfoundry (4.3.6)
       activemodel (>= 3.2.13, < 5.0.0)
       cf-uaa-lib (~> 2.0.0)
       multi_json (~> 1.7)
