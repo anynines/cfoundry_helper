@@ -6,7 +6,7 @@ PATH
       cfoundry
 
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
     activemodel (4.0.0)
       activesupport (= 4.0.0)
@@ -17,11 +17,11 @@ GEM
       multi_json (~> 1.3)
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
-    atomic (1.1.13)
+    atomic (1.1.14)
     builder (3.1.4)
     cf-uaa-lib (2.0.0)
       multi_json
-    cfoundry (4.3.8)
+    cfoundry (4.5.1)
       activemodel (>= 3.2.13, < 5.0.0)
       cf-uaa-lib (~> 2.0.0)
       multi_json (~> 1.7)
@@ -30,7 +30,7 @@ GEM
     coderay (1.0.9)
     columnize (0.3.6)
     daemons (1.1.9)
-    debugger (1.6.1)
+    debugger (1.6.2)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.2.0)
       debugger-ruby_core_source (~> 1.2.3)
@@ -43,7 +43,7 @@ GEM
     json_pure (1.8.0)
     method_source (0.8.2)
     minitest (4.7.5)
-    multi_json (1.7.9)
+    multi_json (1.8.2)
     multipart-post (1.2.0)
     nats (0.4.28)
       daemons (>= 1.1.5)
@@ -63,19 +63,19 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
-    rspec-core (2.14.5)
-    rspec-expectations (2.14.2)
+    rspec-core (2.14.6)
+    rspec-expectations (2.14.3)
       diff-lcs (>= 1.1.3, < 2.0)
-    rspec-mocks (2.14.3)
+    rspec-mocks (2.14.4)
     rubyzip (0.9.9)
     slop (3.4.6)
     thin (1.5.1)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
-    thread_safe (0.1.2)
+    thread_safe (0.1.3)
       atomic
-    tzinfo (0.3.37)
+    tzinfo (0.3.38)
     yajl-ruby (1.1.0)
 
 PLATFORMS
