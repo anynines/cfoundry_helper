@@ -1,12 +1,12 @@
 PATH
   remote: .
   specs:
-    cfoundry_helper (0.2.2)
+    cfoundry_helper (0.2.3)
       activesupport
       cfoundry
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     activemodel (4.0.0)
       activesupport (= 4.0.0)
