@@ -7,6 +7,7 @@ Bundler.require
 module CFoundryHelper
   autoload :Helpers, File.expand_path('../cfoundry_helper/helpers', __FILE__)
   autoload :Models, File.expand_path('../cfoundry_helper/models', __FILE__)
+  autoload :Errors, File.expand_path('../cfoundry_helper/errors', __FILE__)
   
   @@config = nil
   @@config_file_path = nil
@@ -23,7 +24,7 @@ module CFoundryHelper
     self.read_config_file
   end
   
-  def self.set_config_file_path(path)
+  def self.config_file_path=(path)
     @@config_file_path = path
   end
 
@@ -31,6 +32,17 @@ module CFoundryHelper
     return @@config_file_path
   end
   
+  # Returns an array of target available target urls defined in the configuration file as strings.
+  # @returns [Array] 
+  def self.available_targets
+    self.config.keys
+  end
+  
+  # Returns the config hash for the given target url as defined in the configuration file.
+  # Returns nil if the given target url is not defined within the config file.
+  def self.config_for_target(url)
+    self.config[url]
+  end
   
   protected
 
@@ -47,7 +59,7 @@ module CFoundryHelper
   end
 
   def self.check_config_file_path
-    raise "No configuration file path has been set! Please call ClientHelper.set_config_file_path first or set a valid CFOUNDRY_HELPER_CONFIG env variable!" if @@config_file_path.nil?
+    raise "No configuration file path has been set! Please call ClientHelper.config_file_path= first or set a valid CFOUNDRY_HELPER_CONFIG env variable!" if @@config_file_path.nil?
     raise "There's no configuration file on #{@@config_file_path}!" if !File.exists? @@config_file_path
   end
 
@@ -55,7 +67,7 @@ module CFoundryHelper
   def self.set_config_file_path_from_env
     config_file_path = ENV["CFOUNDRY_HELPER_CONFIG"]
     unless config_file_path.nil?
-      self.set_config_file_path config_file_path
+      self.config_file_path = config_file_path
     end
   end
 end

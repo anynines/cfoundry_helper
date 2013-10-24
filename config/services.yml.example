@@ -1,22 +1,25 @@
 production: &defaults
-  uaa:
-    site:           "http://uaa.any9app.com"
-    client_id:      ""
-    client_secret:  ""
-  cloud_controller:
-    site:           "http://api.any9app.com"
-    username:       ""
-    password:       ""
+  "http://api.any9app.com":
+    uaa:
+      site:           "http://uaa.any9app.com"
+      client_id:      "user_registrator"
+      client_secret:  "user_registrator_password"
+    cloud_controller:
+      site:           "http://api.any9app.com"
+      username:       "admin"
+      password:       "admin_password"
+  "http://api.other_target.com":
+    uaa:
+      site:           "http://uaa.other_target.com"
+      client_id:      "user_registrator"
+      client_secret:  "user_registrator_password"
+    cloud_controller:
+      site:           "http://api.other_target.com"
+      username:       "admin"
+      password:       "admin_password"
 
 development:
   <<: *defaults
 
 test:
-  uaa:
-    site:           ""
-    client_id:      ""
-    client_secret:  ""
-  cloud_controller:
-    site:           ""
-    user:           ""
-    password:       ""
+  <<: *defaults

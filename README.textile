@@ -3,6 +3,15 @@ h1. CFoundry Helper
 This collection of scripts provides helper methods to the cfoundry gem's
 API. It implements common use cases when administrating a Cloud Foundry installation.
 
+h2. Configuration
+
+You can configure multiple targets within the services.yml configuration file. Please refer to the services.yml.example file for a detailed example.
+
+h2. Usage
+
+Since cfoundry_helper now supports multiple CF targets you have to set your desired target by using the 
+    CFoundryHelper::Helpers::ClientHelper.current_target_url= method for selecting a target from your service configuration file.
+
 h2. Organization management
 
 The CFoundryHelper::Helpers::OrganizationHelper modules' methods provide helper methods for the following use cases:
@@ -31,7 +40,7 @@ The CFoundryHelper::Helpers::OrganizationHelper modules' methods provide helper 
 
 h2. Client Helper
 
-The CFoundryHelper::Helpers::ClientHelper is a factory for uaa and cloud controller clients.
+The CFoundryHelper::Helpers::ClientHelper is a factory for uaa and cloud controller clients. The current_target_url has to point to your desired endpoint as defined in the config yaml file.
 
 
 h2. Scripts
@@ -49,7 +58,7 @@ h2. Important environment variables
 
 h2. Console Usage
 
-Use the following command to start the console with the associated target: 
+Use the following command to start the console: 
 RAILS_ENV=<target_env> CFOUNDRY_HELPER_CONFIG=<services config file> rake c
 
 e.g.: RAILS_ENV=production CFOUNDRY_HELPER_CONFIG=config/services.yml rake c
