@@ -15,6 +15,7 @@ b) You can also configure the targets by passing in a configuration hash:
      
 
 h2. Target Selection
+
 Since cfoundry_helper now supports multiple CF targets you have to set your desired target by using the 
 CFoundryHelper::Helpers::ClientHelper.current_target_url= method for selecting a target from your service configuration file. 
 You can list all configured targets using the CFoundryHelper.available_targets method.
