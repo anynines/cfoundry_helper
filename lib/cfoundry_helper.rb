@@ -1,6 +1,7 @@
 require 'bundler'
 require 'cfoundry'
 require 'active_support/core_ext/object/try'
+require 'active_support/hash_with_indifferent_access'
 
 Bundler.require
 
@@ -10,26 +11,26 @@ module CFoundryHelper
   autoload :Errors, File.expand_path('../cfoundry_helper/errors', __FILE__)
   
   @@config = nil
-  @@config_file_path = nil
-
-  def self.env
-    unless ENV['RAILS_ENV']
-      return :development
-    else
-      ENV['RAILS_ENV'].to_sym
-    end
+  
+  # Loads the configuration from the specified hash.
+  def self.load_config_from_hash(hash)
+    config = hash
+    check_config! config
+    @@config = config
+    @@config
+  end
+  
+  # Loads the configuration from the specified yaml file.
+  def self.load_config_from_file(file_location)
+    raise "There's no configuration file on #{file_location}!" unless File.exists? file_location
+    config = YAML.load_file(file_location)
+    check_config! config
+    @@config = config
+    @@config
   end
   
   def self.config
-    self.read_config_file
-  end
-  
-  def self.config_file_path=(path)
-    @@config_file_path = path
-  end
-
-  def self.config_file_path
-    return @@config_file_path
+    @@config
   end
   
   # Returns an array of target available target urls defined in the configuration file as strings.
@@ -38,38 +39,29 @@ module CFoundryHelper
     self.config.keys
   end
   
-  # Returns the config hash for the given target url as defined in the configuration file.
-  # Returns nil if the given target url is not defined within the config file.
+  # Returns the config hash for the given target url as defined in the configuration.
+  # Returns nil if the given target url is not defined within the configuration.
   def self.config_for_target(url)
     self.config[url]
   end
   
-  protected
-
-  # reads the uaa and cc configuration from a config file
-  def self.read_config_file
-    # try to set the config file path from the env if not set already
-    self.set_config_file_path_from_env if @@config_file_path.nil?
-
-    if @@config.nil?
-      self.check_config_file_path
-      @@config = YAML.load_file(@@config_file_path)[CFoundryHelper.env.to_s]
-    end
-    @@config
-  end
-
-  def self.check_config_file_path
-    raise "No configuration file path has been set! Please call ClientHelper.config_file_path= first or set a valid CFOUNDRY_HELPER_CONFIG env variable!" if @@config_file_path.nil?
-    raise "There's no configuration file on #{@@config_file_path}!" if !File.exists? @@config_file_path
-  end
-
-  # sets the configuration file path from reading the CFOUNDRY_HELPER_CONFIG env variable
-  def self.set_config_file_path_from_env
-    config_file_path = ENV["CFOUNDRY_HELPER_CONFIG"]
-    unless config_file_path.nil?
-      self.config_file_path = config_file_path
+  private 
+  
+  def self.check_config!(config)
+    raise "No target hashes are defined within the configuration!" if config.count == 0
+    
+    config.each do |target,hash|
+      # check uaa config
+      raise "No uaa section is specified within the target #{target} !" if hash["uaa"].nil?
+      raise "No uaa:site is specifed within the target #{target} !" if hash["uaa"]["site"].nil?
+      raise "No uaa:client_id is specifed within the target #{target} !" if hash["uaa"]["client_id"].nil?
+      raise "No uaa:client_secret is specifed within the target #{target} !" if hash["uaa"]["client_secret"].nil?      
+      
+      # check cc config
+      raise "No cloud_controller section is specified within the target #{target} !" if hash["cloud_controller"].nil?
+      raise "No cloud_controller:site is specifed within the target #{target} !" if hash["cloud_controller"]["site"].nil?
+      raise "No cloud_controller:username is specifed within the target #{target} !" if hash["cloud_controller"]["username"].nil?
+      raise "No cloud_controller:password is specifed within the target #{target} !" if hash["cloud_controller"]["password"].nil?
     end
   end
 end
-
-CFoundryHelper.config

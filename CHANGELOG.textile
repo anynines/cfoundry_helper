@@ -1,10 +1,18 @@
-h1. v0.1.0
-* OrganizationHelper implementation
-* ClientHelper implementation
-* UserHelper implementation
+h2. v0.3.1
+* removes env
+* removes necessary configuration file
+* adds the possibility to load configuration either from a file or from a hash
+
+h2. v0.3.0 
+* multiple target support
+
+h2. v0.2.1
+* Bugfix: Don't cache the cloud controller client since the access token expires in long running apps.
 
 h2. v0.2.0
 * add users to org script
 
-h2. v0.2.1
-* Bugfix: Don't cache the cloud controller client since the access token expires in long running apps.
+h2. v0.1.0
+* OrganizationHelper implementation
+* ClientHelper implementation
+* UserHelper implementation

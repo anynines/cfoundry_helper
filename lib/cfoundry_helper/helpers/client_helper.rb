@@ -52,7 +52,7 @@ module CFoundryHelper::Helpers
     # and register a new user.
     def self.cloud_controller_client
       # just return the already initialized client if present
-      raise CFoundryHelper::Errors::ConfigurationError, "The ClientHelper's current target url is not defined in the configuration yaml file!" if CFoundryHelper.config[@@current_target_url].nil?
+      raise CFoundryHelper::Errors::ConfigurationError, "The ClientHelper's current target url is not defined in the configuration!" if CFoundryHelper.config[@@current_target_url].nil?
       
       
       # just return the already initialized client if it was explicit setted.

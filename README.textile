@@ -5,12 +5,22 @@ API. It implements common use cases when administrating a Cloud Foundry installa
 
 h2. Configuration
 
-You can configure multiple targets within the services.yml configuration file. Please refer to the services.yml.example file for a detailed example.
+a) You can configure multiple targets within a configuration file. Please execute the following code to load the file's contents into the configuration:
+    CFoundryHelper.load_config_from_file file_location
 
-h2. Usage
+b) You can also configure the targets by passing in a configuration hash:
+	CfoundryHelper.load_config_from_hash config_hash
+	
+!!! It is important to load a configuration using one of the methods above before executing any helper functions.
+     
 
+h2. Target Selection
 Since cfoundry_helper now supports multiple CF targets you have to set your desired target by using the 
-    CFoundryHelper::Helpers::ClientHelper.current_target_url= method for selecting a target from your service configuration file.
+CFoundryHelper::Helpers::ClientHelper.current_target_url= method for selecting a target from your service configuration file. 
+You can list all configured targets using the CFoundryHelper.available_targets method.
+
+!!! It is important to select a target before executing any helper functions, e.g:
+    CFoundryHelper::Helpers::ClientHelper.current_target_url = CFoundryHelper.available_targets.first
 
 h2. Organization management
 
@@ -40,25 +50,18 @@ The CFoundryHelper::Helpers::OrganizationHelper modules' methods provide helper 
 
 h2. Client Helper
 
-The CFoundryHelper::Helpers::ClientHelper is a factory for uaa and cloud controller clients. The current_target_url has to point to your desired endpoint as defined in the config yaml file.
+The CFoundryHelper::Helpers::ClientHelper is a factory for uaa and cloud controller clients. The current_target_url has to point to your desired endpoint. (see Target Selection)
 
 
 h2. Scripts
 
 * bin/add_users_to_org : adds users to an organization
-    ** usage : RAILS_ENV=<test / production / development> bundle exec bin/add_users_to_org <org name> <users_email_list_file_location> <services_config_file_location>
+    ** usage : bundle exec bin/add_users_to_org <org name> <users_email_list_file_location> <services_config_file_location>
 * bin/create_space_for_org : creates a space to an organization and assigns all organization members to it
-    ** usage : RAILS_ENV=<test / production / development> bundle exec bin/create_space_for_org <org name> <space name> <services_config_file_location>
+    ** usage : bundle exec bin/create_space_for_org <org name> <space name> <services_config_file_location>
 
-h2. Important environment variables
-
-* RAILS_ENV : The helper is reading the target environment on which to execute commands using the RAILS_ENV environment variable. (e.g. production, test)
-
-* CFOUNDRY_HELPER_CONFIG This variable has to point to your services.yml file.
 
 h2. Console Usage
 
 Use the following command to start the console: 
-RAILS_ENV=<target_env> CFOUNDRY_HELPER_CONFIG=<services config file> rake c
-
-e.g.: RAILS_ENV=production CFOUNDRY_HELPER_CONFIG=config/services.yml rake c
+    bundle exec rake c
