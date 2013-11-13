@@ -1,4 +1,5 @@
 require 'yaml'
+require 'jwt'
 
 module CFoundryHelper::Helpers
   module ClientHelper
@@ -20,7 +21,7 @@ module CFoundryHelper::Helpers
     end
 
     def self.get_auth_token
-      self.cloud_controller_client if @@auth_token.nil?
+      self.cloud_controller_client
       return @@auth_token
     end
 
@@ -54,19 +55,16 @@ module CFoundryHelper::Helpers
       # just return the already initialized client if present
       raise CFoundryHelper::Errors::ConfigurationError, "The ClientHelper's current target url is not defined in the configuration!" if CFoundryHelper.config[@@current_target_url].nil?
       
-      
-      # just return the already initialized client if it was explicit setted.
-      # Don't cache the client in this method because long running apps will
-      # have some trouble with expired auth tokens.
-      # TODO: Refresh the token with the uaa refresh method.
-      return @@cloud_controller_client if @@cloud_controller_client
+      # just return the already initialized client if the auth token is not expired.
+      return @@cloud_controller_client unless is_auth_token_expired?
 
       token_issuer = CF::UAA::TokenIssuer.new(CFoundryHelper.config[@@current_target_url]['uaa']['site'], "cf")
       token_info = token_issuer.implicit_grant_with_creds(CFoundryHelper.config[@@current_target_url]['cloud_controller'])
       access_token = token_info.info["access_token"]
       token = CFoundry::AuthToken.from_hash({:token => "bearer #{access_token}"})
       @@auth_token = token
-      CFoundry::V2::Client.new(CFoundryHelper.config[@@current_target_url]['cloud_controller']['site'], token)
+      cc_client = CFoundry::V2::Client.new(CFoundryHelper.config[@@current_target_url]['cloud_controller']['site'], token)
+      set_cc_client(cc_client)
     end
 
     def self.set_scim_client(client)
@@ -75,6 +73,19 @@ module CFoundryHelper::Helpers
 
     def self.set_cc_client(client)
       @@cloud_controller_client = client
+    end
+    
+    private
+    
+    # Check that the Cloud Foundry auth token isn't expierd.
+    # Returns true if the auth_token is expired or uninitialized.
+    def self.is_auth_token_expired?
+      return true if @@auth_token.nil?
+      
+      decoded_token = ::JWT.decode(@@auth_token.auth_header.split(' ')[1], nil, false)
+
+      return true if Time.at(decoded_token['exp']) < Time.now
+      return false
     end
   end
 end

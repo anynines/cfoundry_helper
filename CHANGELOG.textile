@@ -1,3 +1,6 @@
+h2. v0.3.2
+* requests a new token from the uaa if the token is expired
+
 h2. v0.3.1
 * removes env
 * removes necessary configuration file
