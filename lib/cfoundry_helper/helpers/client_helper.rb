@@ -38,14 +38,14 @@ module CFoundryHelper::Helpers
       
       return @@scim_client unless @@scim_client.nil?
 
-      token_issuer = CF::UAA::TokenIssuer.new(
+      token_issuer = ::CF::UAA::TokenIssuer.new(
           CFoundryHelper.config[@@current_target_url]['uaa']['site'],
           CFoundryHelper.config[@@current_target_url]['uaa']['client_id'],
           CFoundryHelper.config[@@current_target_url]['uaa']['client_secret'])
 
       token_info = token_issuer.client_credentials_grant
       access_token = token_info.info["access_token"]
-      @@scim_client = CF::UAA::Scim.new(CFoundryHelper.config[@@current_target_url]['uaa']['site'], "bEareR #{access_token}")
+      @@scim_client = ::CF::UAA::Scim.new(CFoundryHelper.config[@@current_target_url]['uaa']['site'], "bEareR #{access_token}")
     end
 
     ##
@@ -58,7 +58,7 @@ module CFoundryHelper::Helpers
       # just return the already initialized client if the auth token is not expired.
       return @@cloud_controller_client unless is_auth_token_expired?
 
-      token_issuer = CF::UAA::TokenIssuer.new(CFoundryHelper.config[@@current_target_url]['uaa']['site'], "cf")
+      token_issuer = ::CF::UAA::TokenIssuer.new(CFoundryHelper.config[@@current_target_url]['uaa']['site'], "cf")
       token_info = token_issuer.implicit_grant_with_creds(CFoundryHelper.config[@@current_target_url]['cloud_controller'])
       access_token = token_info.info["access_token"]
       token = CFoundry::AuthToken.from_hash({:token => "bearer #{access_token}"})
