@@ -10,14 +10,14 @@ a) You can configure multiple targets within a configuration file. Please execut
 
 b) You can also configure the targets by passing in a configuration hash:
 	CfoundryHelper.load_config_from_hash config_hash
-	
+
 !!! It is important to load a configuration using one of the methods above before executing any helper functions.
-     
+
 
 h2. Target Selection
 
-Since cfoundry_helper now supports multiple CF targets you have to set your desired target by using the 
-CFoundryHelper::Helpers::ClientHelper.current_target_url= method for selecting a target from your service configuration file. 
+Since cfoundry_helper now supports multiple CF targets you have to set your desired target by using the
+CFoundryHelper::Helpers::ClientHelper.current_target_url= method for selecting a target from your service configuration file.
 You can list all configured targets using the CFoundryHelper.available_targets method.
 
 !!! It is important to select a target before executing any helper functions, e.g:
@@ -36,7 +36,7 @@ h2. User management
 The CFoundryHelper::Helpers::UserHelper module provides methods for managing users within the system:
 
 * get user by email
-* create a user 
+* create a user
 * delete a user
 * change a user's password
 
@@ -46,7 +46,7 @@ The CFoundryHelper::Helpers::OrganizationHelper modules' methods provide helper 
 * create a space within an organization
 * add/remove Users from spaces
 * administer User roles within a space
-* empty a space (remove all apps, service_bindings, service_instances, routes and domains from the space) 
+* empty a space (remove all apps, service_bindings, service_instances, routes and domains from the space)
 * delete a space
 
 h2. Client Helper
@@ -61,8 +61,12 @@ h2. Scripts
 * bin/create_space_for_org : creates a space to an organization and assigns all organization members to it
     ** usage : bundle exec bin/create_space_for_org <org name> <space name> <services_config_file_location>
 
+h2. Documentation
+
+* You can find additional documentation in the doc directory.
+* You can find usage examples in the doc/examples and bin directories.
 
 h2. Console Usage
 
-Use the following command to start the console: 
+Use the following command to start the console:
     bundle exec rake c
