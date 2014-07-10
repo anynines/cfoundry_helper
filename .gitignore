@@ -6,3 +6,4 @@ pkg/
 pkg/*
 .DS_Store
 bin/.DS_Store
+.bundle
