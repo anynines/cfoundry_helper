@@ -1,3 +1,7 @@
+h2. v0.3.3
+* update jwt gem version to 1.0.0
+* fixes jwt usage in ClientHelper
+
 h2. v0.3.2
 * requests a new token from the uaa if the token is expired
 
