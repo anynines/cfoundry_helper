@@ -36,5 +36,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "cfoundry"
   spec.add_dependency "activesupport"
-  spec.add_dependency "jwt"
+  spec.add_dependency "jwt", ">= 1.0.0"
 end
