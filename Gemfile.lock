@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cfoundry_helper (0.3.2)
+    cfoundry_helper (0.3.3)
       activesupport
       cfoundry
       jwt (>= 1.0.0)
