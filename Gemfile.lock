@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cfoundry_helper (0.3.3)
+    cfoundry_helper (0.4.0)
       activesupport
       cfoundry
       jwt (>= 1.0.0)
@@ -9,17 +9,16 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activemodel (4.0.0)
-      activesupport (= 4.0.0)
-      builder (~> 3.1.0)
-    activesupport (4.0.0)
-      i18n (~> 0.6, >= 0.6.4)
-      minitest (~> 4.2)
-      multi_json (~> 1.3)
-      thread_safe (~> 0.1)
-      tzinfo (~> 0.3.37)
-    atomic (1.1.14)
-    builder (3.1.4)
+    activemodel (4.2.1)
+      activesupport (= 4.2.1)
+      builder (~> 3.1)
+    activesupport (4.2.1)
+      i18n (~> 0.7)
+      json (~> 1.7, >= 1.7.7)
+      minitest (~> 5.1)
+      thread_safe (~> 0.3, >= 0.3.4)
+      tzinfo (~> 1.1)
+    builder (3.2.2)
     cf-uaa-lib (2.0.0)
       multi_json
     cfoundry (4.7.1)
@@ -29,22 +28,16 @@ GEM
       multipart-post (~> 1.1)
       rubyzip (~> 0.9)
     coderay (1.0.9)
-    columnize (0.3.6)
     daemons (1.1.9)
-    debugger (1.6.2)
-      columnize (>= 0.3.1)
-      debugger-linecache (~> 1.2.0)
-      debugger-ruby_core_source (~> 1.2.3)
-    debugger-linecache (1.2.0)
-    debugger-ruby_core_source (1.2.3)
     diff-lcs (1.2.4)
     eventmachine (0.12.10)
     httpclient (2.3.4.1)
-    i18n (0.6.5)
+    i18n (0.7.0)
+    json (1.8.2)
     json_pure (1.8.0)
     jwt (1.0.0)
     method_source (0.8.2)
-    minitest (4.7.5)
+    minitest (5.5.1)
     multi_json (1.10.1)
     multipart-post (1.2.0)
     nats (0.4.28)
@@ -56,9 +49,6 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
-    pry-debugger (0.2.2)
-      debugger (~> 1.3)
-      pry (~> 0.9.10)
     rack (1.5.2)
     rake (10.1.0)
     rspec (2.14.1)
@@ -75,23 +65,21 @@ GEM
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
-    thread_safe (0.1.3)
-      atomic
-    tzinfo (0.3.38)
+    thread_safe (0.3.5)
+    tzinfo (1.2.2)
+      thread_safe (~> 0.1)
     yajl-ruby (1.1.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  activesupport
   bundler (~> 1.3)
   cf-uaa-lib
   cfoundry_helper!
   httpclient
   nats
   pry
-  pry-debugger
   rake
   rspec
   yajl-ruby

@@ -27,12 +27,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "nats"
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "cf-uaa-lib"
-  spec.add_development_dependency "activesupport"
   spec.add_development_dependency "httpclient"
   spec.add_development_dependency "yajl-ruby"
 
   spec.add_development_dependency "pry"
-  spec.add_development_dependency "pry-debugger"
 
   spec.add_dependency "cfoundry"
   spec.add_dependency "activesupport"
